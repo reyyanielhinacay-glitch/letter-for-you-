@@ -1,0 +1,344 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Letter For You ❤️</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fce4ec, #f8bbd0, #fce4ec);
+  font-family: Georgia, serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  padding: 20px;
+  color: #78465b;
+}
+
+.heart {
+  position: fixed;
+  bottom: -30px;
+  color: #e75480;
+  animation: floatUp linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  20% { opacity: 0.8; }
+  to {
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+h1 {
+  font-size: 27px;
+  color: #b84d77;
+  margin-bottom: 15px;
+}
+
+.subtitle {
+  font-size: 15px;
+  margin-bottom: 30px;
+  color: #87576b;
+  font-style: italic;
+}
+
+.envelope-area {
+  height: 210px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 900px;
+}
+
+.envelope {
+  width: 270px;
+  height: 165px;
+  background: #fff1e9;
+  position: relative;
+  border-radius: 5px;
+  box-shadow: 0 12px 25px #9d547344;
+  cursor: pointer;
+  transition: transform 0.7s;
+}
+
+.envelope:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-left: 135px solid #f7d5d2;
+  border-right: 135px solid #f7d5d2;
+  border-top: 90px solid transparent;
+  z-index: 3;
+}
+
+.flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 135px solid transparent;
+  border-right: 135px solid transparent;
+  border-top: 100px solid #e9a9b9;
+  transform-origin: top;
+  transition: transform 0.8s;
+  z-index: 4;
+}
+
+.seal {
+  position: absolute;
+  top: 65px;
+  left: 112px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #c94c70;
+  color: white;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  z-index: 5;
+  transition: opacity 0.3s;
+}
+
+.envelope.open .flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+.envelope.open .seal {
+  opacity: 0;
+}
+
+.envelope.open {
+  transform: translateY(10px);
+}
+
+button {
+  border: none;
+  background: #c94c78;
+  color: white;
+  padding: 13px 25px;
+  border-radius: 30px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 20px;
+  box-shadow: 0 5px 12px #a9446b44;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  background: #a93763;
+}
+
+.letter {
+  display: none;
+  background: #fffaf3;
+  padding: 27px 22px;
+  margin-top: 28px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px #87465c33;
+  text-align: left;
+  animation: appear 1s ease;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.letter h2 {
+  text-align: center;
+  color: #c45b80;
+  margin-bottom: 20px;
+}
+
+#message {
+  font-size: 15px;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  min-height: 150px;
+}
+
+.signature {
+  text-align: center;
+  margin-top: 25px;
+  color: #c45b80;
+  font-style: italic;
+}
+
+.footer {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #a56a80;
+}
+
+#replay {
+  display: none;
+  margin-top: 18px;
+}
+
+@media(max-width: 380px) {
+  h1 { font-size: 23px; }
+  .envelope { transform: scale(0.9); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>You Have a Letter Waiting for You 💌</h1>
+
+  <p class="subtitle">
+    Someone has something they couldn't say...
+  </p>
+
+  <div class="envelope-area">
+    <div class="envelope" id="envelope">
+      <div class="flap"></div>
+      <div class="seal">♥</div>
+    </div>
+  </div>
+
+  <button id="openBtn" onclick="openLetter()">
+    Tap to Open ❤️
+  </button>
+
+  <div class="letter" id="letter">
+    <h2>Hiii bb, ❤️</h2>
+
+    <p id="message"></p>
+
+    <div class="signature">
+      With all sincerity, ❤️
+    </div>
+  </div>
+
+  <button id="replay" onclick="replayLetter()">
+    Read Again 💌
+  </button>
+
+  <div class="footer">
+    Some feelings are better written than spoken.
+  </div>
+
+</div>
+
+<script>
+const letterText = `so hiii bb hehe akong lang sab tana nga imo kung masabot ba dikay ako lang tanan huhu btw sab kalain sab na murag pinugos an imo pagpa iban kaina diba pero sige lang ik mansab an rason ngano haha:( gusto sab tana nako gyud mo iban pero waya rakan kay amo lagi jaon makita sab nako sa imo na mag duha2 kaww pagpa iban sako pede raman sab tana nimo ilaong sako largo way man labad gud diba dikay way klaro mag duha2 man hinuan kaww magpa iban:(
+
+And honestly, I don't know if you notice it, but sometimes I feel like I'm not really part of your plans. Like, gusto pud unta nako nga ma-feel nga naa koy place sa imong life, nga you also want me around, not just when it's convenient for you.
+
+I know you have your own reasons, and I don't want to make you feel guilty or force you to do anything. I just wish you could understand my side too. Kay dili man pud lalim nga gusto kaayo ka makig-spend time sa usa ka person, pero murag ikaw ra ang excited.
+
+Sometimes, I also want to feel that someone is looking forward to seeing me, nga dili lang ako pirmi ang mangayo og time or mag-initiate. I want to feel wanted without having to ask for it.
+
+And please don't misunderstand me. Dili ni pasabot nga naglagot ko nimo or wala nako nasabtan imong situation. I just have feelings too, and sometimes I get hurt by the little things nga basin para nimo simple ra, pero dako na diay og meaning para nako.
+
+I wanted to be there for you, to spend time with you, to make memories with you. Gusto pud nako nga naa ko sa imong side, nga if you need someone, you can count on me. Pero sometimes, I wonder if you even want me there.
+
+It's not about asking for too much. It's just about wanting the same energy, the same effort, and the same excitement.
+
+I don't want to beg for a place in someone's life. I just want to know nga kung moingon kog gusto ko makig-uban nimo, gusto pud ka nga makig-uban nako.
+
+That's all. I hope you understand. I still want to spend time with you, but I also want to feel that you genuinely want the same thing. :(( ❤️`;
+
+let typingTimer;
+
+function openLetter() {
+  const envelope = document.getElementById("envelope");
+  const letter = document.getElementById("letter");
+  const button = document.getElementById("openBtn");
+  const replay = document.getElementById("replay");
+
+  envelope.classList.add("open");
+  button.style.display = "none";
+
+  setTimeout(() => {
+    letter.style.display = "block";
+    replay.style.display = "inline-block";
+    typeMessage();
+  }, 900);
+}
+
+function typeMessage() {
+  const message = document.getElementById("message");
+  message.textContent = "";
+
+  let index = 0;
+
+  clearInterval(typingTimer);
+
+  typingTimer = setInterval(() => {
+    message.textContent += letterText.charAt(index);
+    index++;
+
+    if (index >= letterText.length) {
+      clearInterval(typingTimer);
+    }
+  }, 22);
+}
+
+function replayLetter() {
+  clearInterval(typingTimer);
+
+  document.getElementById("letter").style.display = "block";
+  document.getElementById("message").textContent = "";
+
+  typeMessage();
+}
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = Math.random() > 0.5 ? "♥" : "♡";
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (14 + Math.random() * 20) + "px";
+  heart.style.animationDuration = (5 + Math.random() * 6) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 11000);
+}
+
+setInterval(createHeart, 450);
+</script>
+
+</body>
+</html>
